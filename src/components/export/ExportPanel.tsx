@@ -1,6 +1,7 @@
 import { useSettingsStore } from "../../store/useSettingsStore";
 import { BackgroundPicker } from "../preview/BackgroundPicker";
 import { ShadowControls } from "./ShadowControls";
+import { MaskControls } from "./MaskControls";
 import type { ExportFormat } from "../../types";
 
 export function ExportPanel() {
@@ -54,6 +55,7 @@ export function ExportPanel() {
         </div>
       )}
 
+      <MaskControls />
       <BackgroundPicker />
       <ShadowControls />
     </div>

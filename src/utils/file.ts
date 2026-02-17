@@ -1,5 +1,5 @@
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_SIZE = 20 * 1024 * 1024; // 20MB
+const MAX_SIZE = 50 * 1024 * 1024; // 50MB
 
 export function validateFiles(files: File[]): {
   valid: File[];
@@ -14,7 +14,7 @@ export function validateFiles(files: File[]): {
       continue;
     }
     if (file.size > MAX_SIZE) {
-      errors.push(`"${file.name}" - 파일 크기가 20MB를 초과합니다`);
+      errors.push(`"${file.name}" - 파일 크기가 50MB를 초과합니다`);
       continue;
     }
     valid.push(file);

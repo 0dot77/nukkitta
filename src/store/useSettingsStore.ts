@@ -8,6 +8,7 @@ interface SettingsStore extends ExportSettings {
   setBackground: (bg: ExportSettings["background"]) => void;
   setBackgroundColor: (color: string) => void;
   setShadow: (update: Partial<ExportSettings["shadow"]>) => void;
+  setMask: (update: Partial<ExportSettings["mask"]>) => void;
 }
 
 export const useSettingsStore = create<SettingsStore>()(
@@ -25,6 +26,11 @@ export const useSettingsStore = create<SettingsStore>()(
         opacity: 0.3,
         color: "#000000",
       },
+      mask: {
+        threshold: 128,
+        feather: 1,
+        erode: 1,
+      },
 
       setFormat: (format) => set({ format }),
       setJpegQuality: (jpegQuality) => set({ jpegQuality }),
@@ -33,6 +39,10 @@ export const useSettingsStore = create<SettingsStore>()(
       setShadow: (update) =>
         set((state) => ({
           shadow: { ...state.shadow, ...update },
+        })),
+      setMask: (update) =>
+        set((state) => ({
+          mask: { ...state.mask, ...update },
         })),
     }),
     { name: "nukkitta-settings" }

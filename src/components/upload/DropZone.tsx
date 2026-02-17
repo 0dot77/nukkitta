@@ -31,7 +31,7 @@ export function DropZone({ onFilesAdded }: DropZoneProps) {
       "image/png": [".png"],
       "image/webp": [".webp"],
     },
-    maxSize: 20 * 1024 * 1024,
+    maxSize: 50 * 1024 * 1024,
     multiple: true,
   });
 
@@ -58,7 +58,7 @@ export function DropZone({ onFilesAdded }: DropZoneProps) {
           : "상품 사진을 드래그하거나 클릭하세요"}
       </p>
       <p className="text-sm text-text-secondary">
-        JPG, PNG, WebP &middot; 최대 20MB &middot; 여러 장 한번에 가능
+        JPG, PNG, WebP &middot; 최대 50MB &middot; 여러 장 한번에 가능
       </p>
       <p className="mt-2 text-xs text-text-secondary">
         Ctrl+V로 클립보드에서 붙여넣기도 됩니다

@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from "react";
 import type { ImageItem } from "../../types";
+import { useSettingsStore } from "../../store/useSettingsStore";
 
 interface BeforeAfterProps {
   image: ImageItem;
@@ -9,6 +10,9 @@ export function BeforeAfter({ image }: BeforeAfterProps) {
   const [splitPos, setSplitPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+  const shadow = useSettingsStore((s) => s.shadow);
+  const background = useSettingsStore((s) => s.background);
+  const backgroundColor = useSettingsStore((s) => s.backgroundColor);
 
   const handleMove = useCallback((clientX: number) => {
     if (!containerRef.current || !dragging.current) return;
@@ -51,13 +55,30 @@ export function BeforeAfter({ image }: BeforeAfterProps) {
 
       {/* Result (clipped) */}
       <div
-        className="checkerboard absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - splitPos}% 0 0)` }}
+        className={`absolute inset-0 overflow-hidden ${
+          background === "transparent" ? "checkerboard" : ""
+        }`}
+        style={{
+          clipPath: `inset(0 ${100 - splitPos}% 0 0)`,
+          ...(background !== "transparent"
+            ? {
+                backgroundColor:
+                  background === "white" ? "#ffffff" : backgroundColor,
+              }
+            : {}),
+        }}
       >
         <img
           src={image.resultUrl}
           alt="결과"
-          className="h-full w-full object-contain"
+          className="h-full w-full object-contain transition-[filter] duration-200"
+          style={
+            shadow.enabled
+              ? {
+                  filter: `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px rgba(0,0,0,${shadow.opacity}))`,
+                }
+              : undefined
+          }
           draggable={false}
         />
       </div>

@@ -9,6 +9,7 @@ import { BeforeAfter } from "./components/preview/BeforeAfter";
 import { ExportPanel } from "./components/export/ExportPanel";
 import { BatchDownload } from "./components/export/BatchDownload";
 import { PricingBanner } from "./components/pricing/PricingBanner";
+import { AdBanner } from "./components/layout/AdBanner";
 import { useAppStore } from "./store/useAppStore";
 import { useImageProcessor } from "./hooks/useImageProcessor";
 
@@ -64,6 +65,9 @@ export default function App() {
 
         {/* Upload area */}
         <DropZone onFilesAdded={handleFilesAdded} />
+
+        {/* Ad: below upload area */}
+        <AdBanner slot="1234567890" format="horizontal" />
 
         {/* Main content layout */}
         {hasImages && (
@@ -122,6 +126,8 @@ export default function App() {
             </div>
           </div>
         )}
+        {/* Ad: above footer */}
+        <AdBanner slot="0987654321" format="horizontal" />
       </main>
 
       <Footer />

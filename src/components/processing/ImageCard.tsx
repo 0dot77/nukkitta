@@ -14,6 +14,7 @@ interface ImageCardProps {
 export function ImageCard({ image }: ImageCardProps) {
   const removeImage = useAppStore((s) => s.removeImage);
   const settings = useSettingsStore();
+  const { shadow } = settings;
 
   const handleDownload = async () => {
     if (!image.resultBlob) return;
@@ -78,11 +79,32 @@ export function ImageCard({ image }: ImageCardProps) {
         {/* Result */}
         <div className="relative aspect-square overflow-hidden">
           {image.resultUrl ? (
-            <div className="checkerboard h-full w-full">
+            <div
+              className={`h-full w-full flex items-center justify-center p-2 ${
+                settings.background === "transparent" ? "checkerboard" : ""
+              }`}
+              style={
+                settings.background !== "transparent"
+                  ? {
+                      backgroundColor:
+                        settings.background === "white"
+                          ? "#ffffff"
+                          : settings.backgroundColor,
+                    }
+                  : undefined
+              }
+            >
               <img
                 src={image.resultUrl}
                 alt="결과"
-                className="h-full w-full object-contain"
+                className="max-h-full max-w-full object-contain transition-[filter] duration-200"
+                style={
+                  shadow.enabled
+                    ? {
+                        filter: `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px rgba(0,0,0,${shadow.opacity}))`,
+                      }
+                    : undefined
+                }
               />
             </div>
           ) : (
