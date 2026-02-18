@@ -27,7 +27,16 @@ export function Footer() {
           <p>
             누끼따 &copy; {new Date().getFullYear()} &middot; AI 모델:{" "}
             <a
-              href="https://huggingface.co/schirrmacher/ormbg"
+              href="https://huggingface.co/onnx-community/BiRefNet_lite-ONNX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-primary"
+            >
+              BiRefNet Lite
+            </a>
+            {" / "}
+            <a
+              href="https://huggingface.co/onnx-community/ormbg-ONNX"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-primary"
