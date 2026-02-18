@@ -150,7 +150,7 @@ export default function App() {
                     전문 수준 결과물
                   </h4>
                   <p className="text-xs leading-relaxed text-text-secondary">
-                    최신 AI 모델(BiRefNet)이 머리카락, 반투명 소재까지
+                    최신 AI 모델이 머리카락, 반투명 소재까지
                     정밀하게 분리합니다.
                   </p>
                 </div>

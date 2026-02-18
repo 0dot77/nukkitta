@@ -1,18 +1,12 @@
-import {
-  AutoModel,
-  AutoProcessor,
-  env,
-  type PreTrainedModel,
-  type Processor,
-} from "@huggingface/transformers";
+import { pipeline, env } from "@huggingface/transformers";
 import type { DeviceType } from "../types";
 
 env.allowLocalModels = false;
 
-const MODEL_ID = "onnx-community/BiRefNet_lite-ONNX";
+const MODEL_ID = "onnx-community/ormbg-ONNX";
 
-let model: PreTrainedModel | null = null;
-let processor: Processor | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let segmenter: any = null;
 let currentDevice: DeviceType | null = null;
 
 async function detectDevice(): Promise<DeviceType> {
@@ -32,7 +26,7 @@ async function detectDevice(): Promise<DeviceType> {
 export async function loadModel(
   onProgress: (progress: number, text: string) => void
 ): Promise<{ device: DeviceType }> {
-  if (model && processor && currentDevice) {
+  if (segmenter && currentDevice) {
     return { device: currentDevice };
   }
 
@@ -41,13 +35,9 @@ export async function loadModel(
 
   onProgress(0, "모델 준비 중...");
 
-  const modelConfig: Record<string, unknown> = {
+  segmenter = await pipeline("background-removal", MODEL_ID, {
     device,
-    dtype: device === "webgpu" ? "fp16" : "fp32",
-  };
-
-  model = await AutoModel.from_pretrained(MODEL_ID, {
-    ...modelConfig,
+    dtype: device === "webgpu" ? "fp16" : "uint8",
     progress_callback: (p: { progress?: number; status?: string }) => {
       if (p.progress != null) {
         onProgress(
@@ -60,18 +50,12 @@ export async function loadModel(
     },
   });
 
-  processor = await AutoProcessor.from_pretrained(MODEL_ID);
-
   onProgress(100, "모델 준비 완료!");
   return { device };
 }
 
-export function getModel(): PreTrainedModel {
-  if (!model) throw new Error("모델이 로드되지 않았습니다");
-  return model;
-}
-
-export function getProcessor(): Processor {
-  if (!processor) throw new Error("프로세서가 로드되지 않았습니다");
-  return processor;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getSegmenter(): any {
+  if (!segmenter) throw new Error("모델이 로드되지 않았습니다");
+  return segmenter;
 }

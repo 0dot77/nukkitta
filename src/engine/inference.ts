@@ -1,17 +1,23 @@
 import { RawImage } from "@huggingface/transformers";
-import { getModel, getProcessor } from "./model";
+import { getSegmenter } from "./model";
 
 export async function runInference(imageUrl: string): Promise<RawImage> {
-  const image = await RawImage.fromURL(imageUrl);
-  const processor = getProcessor();
-  const model = getModel();
+  const segmenter = getSegmenter();
 
-  const { pixel_values } = await processor(image);
-  const { output_image } = await model({ input_image: pixel_values });
+  // Pipeline returns RawImage[] with RGBA (alpha = mask)
+  const results = await segmenter(imageUrl);
+  const output: RawImage = results[0];
 
-  const maskData = await RawImage.fromTensor(
-    output_image[0].sigmoid().mul(255).to("uint8")
-  ).resize(image.width, image.height);
+  // Extract alpha channel as single-channel mask
+  const pixelCount = output.width * output.height;
+  const channels = output.data.length / pixelCount;
+  const maskArray = new Uint8Array(pixelCount);
 
-  return maskData;
+  for (let i = 0; i < pixelCount; i++) {
+    // Alpha is the last channel (index 3 for RGBA)
+    maskArray[i] = output.data[i * channels + (channels - 1)];
+  }
+
+  // Return single-channel mask as RawImage
+  return new RawImage(maskArray, output.width, output.height, 1);
 }
