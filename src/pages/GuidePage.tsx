@@ -24,8 +24,8 @@ export default function GuidePage() {
         </h2>
         <p className="mb-6 text-sm leading-relaxed text-text-secondary">
           누끼따는 3단계만으로 배경이 제거된 이미지를 얻을 수 있습니다. 별도의
-          회원가입이나 프로그램 설치가 필요 없으며, 웹 브라우저만 있으면
-          됩니다.
+          회원가입이나 프로그램 설치가 필요 없으며, 사용 횟수 제한 없이 웹
+          브라우저만 있으면 됩니다.
         </p>
         <div className="grid gap-6 sm:grid-cols-3">
           {[

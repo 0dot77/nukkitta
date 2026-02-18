@@ -62,7 +62,7 @@ export default function AboutPage() {
               무료 & 간편
             </h3>
             <p className="text-sm leading-relaxed text-text-secondary">
-              회원가입 없이 하루 50장까지 무료로 이용할 수 있습니다.
+              회원가입 없이 무제한 무료로 이용할 수 있습니다.
               드래그&드롭 또는 클립보드 붙여넣기만으로 즉시 배경 제거가
               시작됩니다. 복잡한 설정이나 학습 과정이 필요 없습니다.
             </p>

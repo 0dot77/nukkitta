@@ -107,7 +107,7 @@ export default function App() {
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-text-secondary">
                 <span className="flex items-center gap-1">
                   <span className="inline-block h-2 w-2 rounded-full bg-success" />
-                  하루 50장 무료
+                  무제한 무료
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="inline-block h-2 w-2 rounded-full bg-success" />

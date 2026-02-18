@@ -2,7 +2,6 @@ import { useCallback, useRef } from "react";
 import { useAppStore } from "../store/useAppStore";
 import { useSettingsStore } from "../store/useSettingsStore";
 import { useModelLoader } from "./useModelLoader";
-import { useDailyQuota } from "./useDailyQuota";
 import { runInference } from "../engine/inference";
 import {
   applyMask,
@@ -14,7 +13,6 @@ import {
 export function useImageProcessor() {
   const { images, updateImage, setProcessing, isProcessing } = useAppStore();
   const { ensureModel } = useModelLoader();
-  const { canProcess, recordUsage } = useDailyQuota();
   const maskSettings = useSettingsStore((s) => s.mask);
   const processingRef = useRef(false);
 
@@ -38,14 +36,6 @@ export function useImageProcessor() {
     const currentMask = useSettingsStore.getState().mask;
 
     for (const item of queued) {
-      if (!canProcess) {
-        updateImage(item.id, {
-          status: "error",
-          error: "일일 무료 한도를 초과했습니다",
-        });
-        continue;
-      }
-
       updateImage(item.id, { status: "processing", progress: 10 });
 
       try {
@@ -94,7 +84,6 @@ export function useImageProcessor() {
           progress: 100,
         });
 
-        recordUsage();
       } catch (err) {
         const message =
           err instanceof Error ? err.message : "처리 중 오류가 발생했습니다";
@@ -108,7 +97,7 @@ export function useImageProcessor() {
 
     processingRef.current = false;
     setProcessing(false);
-  }, [ensureModel, canProcess, recordUsage, updateImage, setProcessing, maskSettings]);
+  }, [ensureModel, updateImage, setProcessing, maskSettings]);
 
   // Re-apply mask refinement to already-processed images (no re-inference)
   const reprocessAll = useCallback(async () => {
