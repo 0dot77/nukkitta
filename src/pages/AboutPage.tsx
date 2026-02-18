@@ -49,7 +49,7 @@ export default function AboutPage() {
               전문 수준 결과물
             </h3>
             <p className="text-sm leading-relaxed text-text-secondary">
-              최신 AI 모델(RMBG-1.4)을 사용하여 머리카락, 반투명 소재 등
+              최신 AI 모델(BiRefNet Lite)을 사용하여 머리카락, 반투명 소재 등
               복잡한 영역도 정밀하게 분리합니다. 마스크 정밀도 조절과 자연스러운
               그림자 추가로 쇼핑몰 상품 사진에 최적화된 결과를 제공합니다.
             </p>
@@ -143,11 +143,11 @@ export default function AboutPage() {
             <tbody className="divide-y divide-border">
               <tr>
                 <td className="px-4 py-3 font-medium text-text-primary">
-                  RMBG-1.4
+                  BiRefNet Lite
                 </td>
                 <td className="px-4 py-3 text-text-secondary">
-                  BRIA AI에서 개발한 최신 배경 제거 AI 모델로, 다양한 이미지
-                  유형에서 높은 정확도를 제공합니다.
+                  MIT 라이선스의 고정밀 이미지 분할 AI 모델로, 다양한 이미지
+                  유형에서 높은 정확도의 배경 제거를 제공합니다.
                 </td>
               </tr>
               <tr>

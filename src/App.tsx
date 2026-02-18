@@ -44,7 +44,7 @@ export default function App() {
             </p>
             <ProgressBar progress={model.progress} />
             <p className="mt-2 text-xs text-primary/70">
-              첫 방문 시 약 45MB 모델을 다운로드합니다. 이후 브라우저 캐시를 사용합니다.
+              첫 방문 시 AI 모델을 다운로드합니다. 이후 브라우저 캐시를 사용합니다.
             </p>
           </div>
         )}
@@ -150,7 +150,7 @@ export default function App() {
                     전문 수준 결과물
                   </h4>
                   <p className="text-xs leading-relaxed text-text-secondary">
-                    최신 AI 모델(RMBG-1.4)이 머리카락, 반투명 소재까지
+                    최신 AI 모델(BiRefNet)이 머리카락, 반투명 소재까지
                     정밀하게 분리합니다.
                   </p>
                 </div>

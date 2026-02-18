@@ -9,7 +9,7 @@ import type { DeviceType } from "../types";
 
 env.allowLocalModels = false;
 
-const MODEL_ID = "briaai/RMBG-1.4";
+const MODEL_ID = "onnx-community/BiRefNet_lite-ONNX";
 
 let model: PreTrainedModel | null = null;
 let processor: Processor | null = null;
@@ -42,14 +42,9 @@ export async function loadModel(
   onProgress(0, "모델 준비 중...");
 
   const modelConfig: Record<string, unknown> = {
-    dtype: "fp32",
+    device,
+    dtype: device === "webgpu" ? "fp16" : "fp32",
   };
-
-  if (device === "webgpu") {
-    modelConfig.device = "webgpu";
-  } else {
-    modelConfig.device = "wasm";
-  }
 
   model = await AutoModel.from_pretrained(MODEL_ID, {
     ...modelConfig,
